@@ -56,7 +56,7 @@ junit.xml
 .webpack/
 
 # Babel cache
-.babelrc
+#.babelrc
 .babelrc.js
 .babelrc.json
 .babelrc.mjs
