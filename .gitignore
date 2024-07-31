@@ -1,0 +1,101 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Directory for Build Output
+dist/
+build/
+
+# Dependency directories
+node_modules/
+.bower_components/
+
+# Local environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor directories and files
+.vscode/
+.idea/
+.DS_Store
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Test and coverage results
+coverage/
+test-results.xml
+junit.xml
+/lcov-report
+
+# Parcel cache (if you're using Parcel instead of Webpack)
+.cache/
+
+# Temporary directories and files
+.tmp/
+.temp/
+*.tmp
+*.temp
+
+# Webpack cache
+.cache/
+.cache-loader/
+.webpack/
+
+# Babel cache
+.babelrc
+.babelrc.js
+.babelrc.json
+.babelrc.mjs
+.babelrc.cjs
+
+# ESLint cache
+.eslintcache
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Dependency Lock files
+package-lock.json
+yarn.lock
+
+# Serverless
+.serverless/
+
+# Storybook files
+storybook-static/
+
+# Other IDEs and editors
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+*.sublime-metadata
+*.idea/
+*.vscode/
+*~backup*
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Prettier configuration
+.prettierignore
+
+# Mac files
+*.DS_Store
+
+# Linux temporary files
+*~
