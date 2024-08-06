@@ -27,12 +27,5 @@ module.exports = {
       template: './public/index.html',
     }),
   ],
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 3000,
-    open: true,
-    hot: true,
-  },
   mode: 'development',
 };
