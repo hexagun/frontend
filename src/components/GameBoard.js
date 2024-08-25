@@ -1,26 +1,27 @@
 import React from 'react';
 const { Fragment } = React;
 
+import { useSelector } from 'react-redux'
+
 import BoardTile from './BoardTile';
 import CrossToken from './CrossToken';
 import RingToken from './RingToken';
 
-const GameBoard = ({ tiles, onClick }) => {
+const selectBoard = state => state.board
+
+const GameBoard = ({ onClick }) => {
+
+    const board = useSelector(selectBoard)
 
     const boardStyle = {
         width: 1,
         spacing: 0.03
     };
     
-    const tokenStyle = {
-        width: 0.5,
-        spacing: 0.03
-    };
-
     return (
         <>
         {
-            tiles.map((row, j) => {
+            board.map((row, j) => {
                 return row.map((tile, i)=> {
                     let x = (tile.x - 1) * (boardStyle.width + boardStyle.spacing);
                     let y = (tile.y - 1) * (boardStyle.width + boardStyle.spacing);
