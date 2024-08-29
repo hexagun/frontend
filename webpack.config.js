@@ -11,6 +11,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.tsx?$/, // Match .ts and .tsx files
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
@@ -20,7 +25,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'], // Resolve these extensions
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -28,4 +33,5 @@ module.exports = {
     }),
   ],
   mode: 'development',
+  devtool: 'source-map', // Helpful for debugging
 };
