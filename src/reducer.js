@@ -1,11 +1,7 @@
 
 import _ from 'lodash';
 
-const Stage = {
-    PreGame: 'PreGame',
-    InGame: 'InGame',
-    Ended: 'Ended'
-};
+import { Stage } from "./stage"
 
 const initialState = {
     stage: Stage.PreGame,
