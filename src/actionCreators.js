@@ -1,3 +1,4 @@
+import { Stage } from "./stage"
 
 function is_won(board, type)
 {
@@ -24,9 +25,10 @@ export function playToken(xIndex, yIndex) {
         const active_player =  getState().players[active_player_id];
         const token = active_player.token;
         const board = getState().board;
+        const stage =  getState().stage;
         const tile = board[yIndex][xIndex];
         
-        if (tile.token)
+        if (tile.token || stage !== Stage.InGame)
             return;
         
         dispatch({ type: 'board/playToken', payload: { x: xIndex, y: yIndex, token: token } });
@@ -47,3 +49,9 @@ export function playToken(xIndex, yIndex) {
         dispatch({ type: 'active_player_id/switch', payload: other_player_id });
     }
 }
+
+export const startGame = () => {
+    return {
+      type: 'stage/startGame'
+    }
+  }
