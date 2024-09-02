@@ -38,7 +38,7 @@ const GameBoard = ({ onClick }) => {
                             </Fragment>);
                 })
             })
-        }        
+        }
         </> 
       )
 };

@@ -1,15 +1,26 @@
 import { Stage } from "./stage"
 
-function is_won(board, type)
+function determine_winning_line(board, type)
 {
-    return (board[0][0].token == type && board[0][1].token == type && board[0][2].token == type) // Vertical
-        || (board[1][0].token == type && board[1][1].token == type && board[1][2].token == type) // Vertical
-        || (board[2][0].token == type && board[2][1].token == type && board[2][2].token == type) // Vertical
-        || (board[0][0].token == type && board[1][0].token == type && board[2][0].token == type) // Horizontal
-        || (board[0][1].token == type && board[1][1].token == type && board[2][1].token == type) // Horizontal
-        || (board[0][2].token == type && board[1][2].token == type && board[2][2].token == type) // Horizontal
-        || (board[0][0].token == type && board[1][1].token == type && board[2][2].token == type) // Diagonal
-        || (board[2][0].token == type && board[1][1].token == type && board[0][2].token == type); // Diagonal
+    if (       board[0][0].token == type && board[0][1].token == type && board[0][2].token == type) {// Horizontal
+        return 'row1';
+    } else if (board[1][0].token == type && board[1][1].token == type && board[1][2].token == type) {// Horizontal
+        return 'row2';
+    } else if (board[2][0].token == type && board[2][1].token == type && board[2][2].token == type) {// Horizontal
+        return 'row3';
+    } else if (board[0][0].token == type && board[1][0].token == type && board[2][0].token == type) {// Vertical
+        return 'column1';
+    } else if (board[0][1].token == type && board[1][1].token == type && board[2][1].token == type) {// Vertical
+        return 'column2';
+    } else if (board[0][2].token == type && board[1][2].token == type && board[2][2].token == type) {// Vertical
+        return 'column3';
+    } else if (board[0][0].token == type && board[1][1].token == type && board[2][2].token == type) {// Diagonal
+        return 'diagonal1';
+    } else if (board[2][0].token == type && board[1][1].token == type && board[0][2].token == type) {// Diagonal
+        return 'diagonal2';
+    } else {
+        return '';
+    }
 }
 
 function is_tied(board)
@@ -33,15 +44,18 @@ export function playToken(xIndex, yIndex) {
         
         dispatch({ type: 'board/playToken', payload: { x: xIndex, y: yIndex, token: token } });
 
-        if (is_won(board, token))
+        var winningLine = determine_winning_line(board, token);
+        if (winningLine)
         {
-            console.log(`Game is won by player ${active_player_id}`);
+            console.log(`Game is won by player ${active_player_id} with line ${winningLine}`);
+            dispatch({type: 'endgame/winGame', payload: {line: winningLine, winner: active_player_id }});
             return;
         }
 
         if (is_tied(board))
         {
             console.log(`Game is tied`);
+            dispatch({type: 'endgame/tieGame'});
             return;
         }
 
