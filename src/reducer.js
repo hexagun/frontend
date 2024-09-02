@@ -2,6 +2,7 @@
 import _ from 'lodash';
 
 import { Stage } from "./stage"
+import { EndGameReason } from "./endGameReason"
 
 const initialState = {
     stage: Stage.PreGame,
@@ -12,6 +13,7 @@ const initialState = {
     ],
     active_player_id: 0,
     players: [{ id: 0, token: "o" }, { id: 1, token: "x" }],
+    endgame: { reason: EndGameReason.NotEnded, info: {} }
   }
   
   // Use the initialState as a default value
@@ -41,9 +43,16 @@ const initialState = {
                 stage: Stage.InGame
             }
         }
-        case 'stage/endGame': {
+        case 'endgame/winGame': {
             return { ...state,
-                stage: Stage.EndGame
+                stage: Stage.Ended,
+                endgame: { reason: EndGameReason.GameWon, info: action.payload }
+            }
+        }
+        case 'endgame/tieGame': {
+            return { ...state,
+                stage: Stage.Ended,
+                endgame: { reason: EndGameReason.GameTied, info: action.payload }
             }
         }
         case 'active_player_id/switch' : {

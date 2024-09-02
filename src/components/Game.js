@@ -10,6 +10,7 @@ import { playToken, startGame } from '../actionCreators';
 
 import GameBoard from './GameBoard';
 import PreGameUI from './PreGameUI';
+import StrikeThroughLine from './StrikeThroughLine';
 
 
 const Game = () => {
@@ -34,8 +35,12 @@ const Game = () => {
                 <directionalLight color="white" position={[0, 0, 100]} />
                 {stage &&
                     {
-                        PreGame :  <PreGameUI onClick={handleButtonClick}/>,
+                        PreGame : <PreGameUI onClick={handleButtonClick}/>,
                         InGame : <GameBoard onClick={handleCubeClick}/>,
+                        Ended : <>
+                                    <GameBoard onClick={handleCubeClick}/>
+                                    <StrikeThroughLine/>
+                                </>,
                     }[stage]
                 }
             </Canvas>
