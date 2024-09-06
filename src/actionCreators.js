@@ -29,6 +29,15 @@ function is_tied(board)
     return _.every(flattenBoard, (t) =>  t.token);
 }
 
+export function endGame() {
+    return function endGameThunk(dispatch, getState) {
+        setTimeout(() => {
+            console.log('Trigger postgame: ');
+            dispatch({type: 'endgame/postGame'});
+          }, 1000)
+    }
+}
+
 export function playToken(xIndex, yIndex) {
     return function playTokenThunk(dispatch, getState) {
         const active_player_id = getState().active_player_id;
@@ -49,6 +58,7 @@ export function playToken(xIndex, yIndex) {
         {
             console.log(`Game is won by player ${active_player_id} with line ${winningLine}`);
             dispatch({type: 'endgame/winGame', payload: {line: winningLine, winner: active_player_id }});
+            dispatch(endGame());
             return;
         }
 
@@ -56,6 +66,7 @@ export function playToken(xIndex, yIndex) {
         {
             console.log(`Game is tied`);
             dispatch({type: 'endgame/tieGame'});
+            dispatch(endGame());
             return;
         }
 
@@ -67,5 +78,11 @@ export function playToken(xIndex, yIndex) {
 export const startGame = () => {
     return {
       type: 'stage/startGame'
+    }
+  }
+
+  export const restartGame = () => {
+    return {
+      type: 'stage/restartGame'
     }
   }

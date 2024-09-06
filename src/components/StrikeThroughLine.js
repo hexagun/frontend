@@ -6,67 +6,72 @@ import { EndGameReason } from '../endGameReason';
 const StrikeThroughLine = () => {
 
     const lineRef = useRef();
-    const is_won = useSelector((state) => state.endgame.reason === EndGameReason.GameWon);
-    const winningLine = useSelector((state) => state.endgame.info.line);
-    console.log(winningLine); 
-    useEffect(() => {       
-        console.log(winningLine); 
-        if (winningLine && lineRef.current) {
-            switch (winningLine)
-            {
-                case 'row1': 
-                {                
-                    lineRef.current.position.set(0, -1, .25); // Adjust Y position for row 1
-                    lineRef.current.rotation.set(0, 0, 0); // Horizontal line
-                    break;
-                }
-                case 'row2':
+    const endgame = useSelector((state) => state.endgame);
+    const is_won =  endgame.reason === EndGameReason.GameWon;
+    
+
+    useEffect(() => {
+        if (is_won)
+        {
+            const winningLine = endgame.info.line;
+            if (winningLine && lineRef.current) {
+                switch (winningLine)
                 {
-                    lineRef.current.position.set(0, 0, .25); // Adjust Y position for row 2
-                    lineRef.current.rotation.set(0, 0, 0); // Horizontal line
-                    break;
+                    case 'row1': 
+                    {                
+                        lineRef.current.position.set(0, -1, .25); // Adjust Y position for row 1
+                        lineRef.current.rotation.set(0, 0, 0); // Horizontal line
+                        break;
+                    }
+                    case 'row2':
+                    {
+                        lineRef.current.position.set(0, 0, .25); // Adjust Y position for row 2
+                        lineRef.current.rotation.set(0, 0, 0); // Horizontal line
+                        break;
+                    }
+                    case 'row3':
+                    {
+                        lineRef.current.position.set(0, 1, .25); // Adjust Y position for row 3
+                        lineRef.current.rotation.set(0, 0, 0); // Horizontal line
+                        break;
+                    }
+                    case 'column1':
+                    {
+                        lineRef.current.position.set(-1, 0, .25); // Adjust X position for column 1
+                        lineRef.current.rotation.set(0, 0, Math.PI / 2); // Vertical line
+                        break;
+                    }
+                    case 'column2': 
+                    {
+                        lineRef.current.position.set(0, 0, .25); // Adjust X position for column 2
+                        lineRef.current.rotation.set(0, 0, Math.PI / 2); // Vertical line
+                        break;
+                    }
+                    case 'column3':
+                    {
+                        lineRef.current.position.set(1, 0, .25); // Adjust X position for column 3
+                        lineRef.current.rotation.set(0, 0, Math.PI / 2); // Vertical line
+                        break;
+                    }
+                    case 'diagonal1':
+                    {
+                        lineRef.current.position.set(0, 0, .25); // Adjust X,Y position for diagonal 1
+                        lineRef.current.rotation.set(0, 0, (Math.PI) / 4); // Diagonal line
+                        break;
+                    }
+                    case 'diagonal2':
+                    {
+                        lineRef.current.position.set(0, 0, .25); // Adjust X,Y position for diagonal 2
+                        lineRef.current.rotation.set(0, 0, -Math.PI / 4); // Diagonal line
+                        break;
+                    }
+                    default:
+                        console.log("error: there's no winning line...")
                 }
-                case 'row3':
-                {
-                    lineRef.current.position.set(0, 1, .25); // Adjust Y position for row 3
-                    lineRef.current.rotation.set(0, 0, 0); // Horizontal line
-                    break;
-                }
-                case 'column1':
-                {
-                    lineRef.current.position.set(-1, 0, .25); // Adjust X position for column 1
-                    lineRef.current.rotation.set(0, 0, Math.PI / 2); // Vertical line
-                    break;
-                }
-                case 'column2': 
-                {
-                    lineRef.current.position.set(0, 0, .25); // Adjust X position for column 2
-                    lineRef.current.rotation.set(0, 0, Math.PI / 2); // Vertical line
-                    break;
-                }
-                case 'column3':
-                {
-                    lineRef.current.position.set(1, 0, .25); // Adjust X position for column 3
-                    lineRef.current.rotation.set(0, 0, Math.PI / 2); // Vertical line
-                    break;
-                }
-                case 'diagonal1':
-                {
-                    lineRef.current.position.set(0, 0, .25); // Adjust X,Y position for diagonal 1
-                    lineRef.current.rotation.set(0, 0, (Math.PI) / 4); // Diagonal line
-                    break;
-                }
-                case 'diagonal2':
-                {
-                    lineRef.current.position.set(0, 0, .25); // Adjust X,Y position for diagonal 2
-                    lineRef.current.rotation.set(0, 0, -Math.PI / 4); // Diagonal line
-                    break;
-                }
-                default:
-                    console.log("error: there's no winning line...")
             }
         }
-     } , [winningLine])
+        
+     } , [is_won])
 
     useFrame(() => {
         if (lineRef.current && is_won) {        
