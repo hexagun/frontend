@@ -6,26 +6,41 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Canvas } from '@react-three/fiber';
 
-import { playToken } from '../actionCreators';
+import { playToken, playTokenOnline } from '../actionCreators';
 
 import GameBoard from './GameBoard';
+
+import { GameType } from '../gameType';
 
 import StrikeThroughLine from './StrikeThroughLine';
 import UI from './UI';
 
+
+
 const Game = () => {
     const dispatch = useDispatch();
     const stage = useSelector(state => state.stage);
+    const gametype = useSelector(state => state.stage);
 
     const handleCubeClick = (event) => {
+
         const tileName = event.eventObject.name;
         const xIndex = tileName.slice(5,6);
         const yIndex = tileName.slice(6,7);
-        dispatch(playToken(xIndex, yIndex));
+        console.log(event);
+        console.log(tileName);
+        console.log(xIndex);
+        console.log(yIndex);
+        if (gametype == GameType.Local) {
+            dispatch(playToken(xIndex, yIndex));
+        } else { // online
+            dispatch(playTokenOnline(xIndex, yIndex));
+        }
+
     }
 
     const renderSwitch = (param) => {
-        switch(param) {            
+        switch(param) {          
             case Stage.InGame:
                 return <GameBoard onClick={handleCubeClick}/>;
             case Stage.Ended:
@@ -46,10 +61,12 @@ const Game = () => {
                 <UI/>
                 {stage &&
                     {
+                        JoinGame : <GameBoard onClick={handleCubeClick}/>,
                         InGame : <GameBoard onClick={handleCubeClick}/>,
                         Ended : <>
                                     <GameBoard onClick={handleCubeClick}/>
                                     <StrikeThroughLine/>
+                                    
                                 </>                      
                     }[stage]
                 }
