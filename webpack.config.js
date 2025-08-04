@@ -34,4 +34,16 @@ module.exports = {
   ],
   mode: 'development',
   devtool: 'source-map', // Helpful for debugging
+  devServer: {
+    port: 5000,    
+    proxy: [
+      {
+        context: ['/api'],
+        target: 'http://localhost:9999',
+        changeOrigin: true,
+        logLevel: 'debug',
+        //pathRewrite: { '^/api': '' }, // optional, depending on your backend
+      },
+    ],
+  },
 };
